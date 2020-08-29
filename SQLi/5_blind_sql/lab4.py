@@ -6,6 +6,8 @@
 		
 	Variables that you may need to be modified: 
 		- pass_length, payload, sleep
+		
+	Lab Title: Blind SQL injection with time delays and information retrieval
 """
 
 import requests

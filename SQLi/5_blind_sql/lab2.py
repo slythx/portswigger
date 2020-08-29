@@ -6,6 +6,8 @@
 		
 	Variables that you may need to be modified: 
 		- pass_length, resp_text_len, payload
+		
+	Lab Title: Blind SQL injection with conditional errors
 """
 
 import requests
